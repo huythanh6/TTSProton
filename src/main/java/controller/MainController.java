@@ -2,8 +2,8 @@ package controller;
 
 import entity.Person;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainController {
     private final List<Person> persons = new ArrayList<>();
@@ -45,6 +45,73 @@ public class MainController {
                 .average()
                 .orElse(0);
         System.out.println("Tuổi trung bình: " + avg);
+    }
+    public void findOldestAndYoungest() {
+        Optional<Person> oldest = persons.stream().max(Comparator.comparingInt(Person::getAge));
+        Optional<Person> youngest = persons.stream().min(Comparator.comparingInt(Person::getAge));
+
+        oldest.ifPresent(p -> System.out.println("Người lớn tuổi nhất: " + p.getName() + " (" + p.getAge() + ")"));
+        youngest.ifPresent(p -> System.out.println("Người nhỏ tuổi nhất: " + p.getName() + " (" + p.getAge() + ")"));
+    }
+
+    public void countByGender() {
+        Map<String, Long> genderCount = persons.stream()
+                .collect(Collectors.groupingBy(Person::getGender, Collectors.counting()));
+
+        genderCount.forEach((gender, count) ->
+                System.out.println("Giới tính: " + gender + " - Số lượng: " + count));
+    }
+
+    public void addPersonFromConsole() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Nhập tên: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Nhập tuổi: ");
+        int age = scanner.nextInt();
+        scanner.nextLine(); // clear buffer
+
+        System.out.print("Nhập giới tính (Male/Female/Other): ");
+        String gender = scanner.nextLine();
+
+        if (age > 0 && age < 120) {
+            Person newPerson = new Person(name, age, gender);
+            persons.add(newPerson);
+            System.out.println("Đã thêm: " + newPerson);
+        } else {
+            System.out.println("Tuổi không hợp lệ!");
+        }
+    }
+
+    public void sortByAge() {
+        persons.sort(Comparator.comparingInt(Person::getAge));
+        System.out.println("Danh sách đã sắp xếp theo tuổi:");
+        persons.forEach(System.out::println);
+    }
+
+    public void searchByName(String keyword) {
+        List<Person> result = persons.stream()
+                .filter(p -> p.getName().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
+
+        if (result.isEmpty()) {
+            System.out.println("Không tìm thấy ai tên chứa '" + keyword + "'");
+        } else {
+            System.out.println("Kết quả tìm kiếm:");
+            result.forEach(System.out::println);
+        }
+    }
+
+    public void greetByGender() {
+        persons.forEach(p -> {
+            switch (p.getGender()) {
+                case "Male" -> System.out.println(p.getName() + ": Hey boy!");
+                case "Female" -> System.out.println(p.getName() + ": Hey girl!");
+                case "Other" -> System.out.println(p.getName() + ": Hey man!");
+                default -> System.out.println(p.getName() + ": Unknown gender");
+            }
+        });
     }
 
 
