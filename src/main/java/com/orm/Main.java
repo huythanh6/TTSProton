@@ -18,11 +18,10 @@ public class Main {
                 1. Phân loại theo độ tuổi
                 2. Tính tuổi trung bình
                 3. Tìm người lớn/nhỏ tuổi nhất
-                4. Đếm theo giới tính
-                5. Thêm Person từ console
-                6. Sắp xếp theo tuổi
-                7. Tìm người theo tên
-                8. Greet theo giới tính
+                4. Đếm theo giới tính             
+                5. Sắp xếp theo tuổi
+                6. Tìm người theo tên
+                7. Greet theo giới tính
                 0. Thoát
                 """);
             System.out.print("Chọn: ");
@@ -33,14 +32,13 @@ public class Main {
                 case 2 -> controller.printAverageAge();
                 case 3 -> controller.findOldestAndYoungest();
                 case 4 -> controller.countByGender();
-                case 5 -> controller.addPersonFromConsole();
-                case 6 -> controller.sortByAge();
-                case 7 -> {
+                case 5 -> controller.sortByAge();
+                case 6 -> {
                     System.out.print("Nhập tên: ");
                     String name = sc.nextLine();
                     controller.searchByName(name);
                 }
-                case 8 -> controller.greetByGender();
+                case 7 -> controller.greetByGender();
                 case 0 -> System.out.println("Thoát.");
                 default -> System.out.println("Không hợp lệ.");
             }

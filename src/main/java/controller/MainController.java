@@ -62,27 +62,27 @@ public class MainController {
                 System.out.println("Giới tính: " + gender + " - Số lượng: " + count));
     }
 
-    public void addPersonFromConsole() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Nhập tên: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Nhập tuổi: ");
-        int age = scanner.nextInt();
-        scanner.nextLine(); // clear buffer
-
-        System.out.print("Nhập giới tính (Male/Female/Other): ");
-        String gender = scanner.nextLine();
-
-        if (age > 0 && age < 120) {
-            Person newPerson = new Person(name, age, gender);
-            persons.add(newPerson);
-            System.out.println("Đã thêm: " + newPerson);
-        } else {
-            System.out.println("Tuổi không hợp lệ!");
-        }
-    }
+//    public void addPersonFromConsole() {
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.print("Nhập tên: ");
+//        String name = scanner.nextLine();
+//
+//        System.out.print("Nhập tuổi: ");
+//        int age = scanner.nextInt();
+//        scanner.nextLine(); // clear buffer
+//
+//        System.out.print("Nhập giới tính (Male/Female/Other): ");
+//        String gender = scanner.nextLine();
+//
+//        if (age > 0 && age < 120) {
+//            Person newPerson = new Person(name, age, gender);
+//            persons.add(newPerson);
+//            System.out.println("Đã thêm: " + newPerson);
+//        } else {
+//            System.out.println("Tuổi không hợp lệ!");
+//        }
+//    }
 
     public void sortByAge() {
         persons.sort(Comparator.comparingInt(Person::getAge));
